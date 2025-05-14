@@ -33,7 +33,6 @@ if camera_image is not None:
     predicted_index = np.argmax(predictions)
     predicted_food = labels[predicted_index]
     predicted_food = labels[predicted_index]
-    predicted_food = re.sub(r'[^가-힣]', '', predicted_food)  # 숫자, 공백 제거
     confidence = predictions[0][predicted_index] * 100
 
     st.subheader(f"🍔 예측된 음식: **{predicted_food}**")
