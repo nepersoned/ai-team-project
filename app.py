@@ -38,4 +38,4 @@ if camera_image is not None:
 
     # 알러지 정보 찾기
     allergens = allergens_df[allergens_df['Menu'] == predicted_food.lower()]['Allergens'].values[0]
-    st.warning(f"⚠️ 알러지 성분: **{allergens}**") 코드상 순서가 중요한건 아니잖아 
+    st.warning(f"⚠️ 알러지 성분: **{allergens}**") 
