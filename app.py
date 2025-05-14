@@ -14,7 +14,7 @@ with open('labels.txt', 'r') as f:
 allergens_df = pd.read_csv('food_ingredients_and_allergens.csv')
 allergens_df['Food Name'] = allergens_df['Food Name'].str.lower().str.strip()
 
-st.title("📷 알러지 자동 판별기")
+st.title("📷 Allergic eye")
 
 # Camera input
 camera_image = st.camera_input("사진을 찍어 주세요!")
@@ -34,7 +34,7 @@ if camera_image is not None:
     confidence = predictions[0][predicted_index] * 100
 
     st.subheader(f"🍔 예측된 음식: **{predicted_food}**")
-    st.write(f"📈 신뢰도: **{confidence:.2f}%**")
+    #st.write(f"📈 신뢰도: **{confidence:.2f}%**")
 
     # 알러지 정보 찾기
     allergens_info = allergens_df[allergens_df['Food Name'] == predicted_food.lower()]['Allergens']
