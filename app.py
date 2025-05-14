@@ -14,6 +14,11 @@ with open('labels.txt', 'r') as f:
 allergens_df = pd.read_csv('menu_with_allergens.csv')
 allergens_df['Menu'] = allergens_df['Allergens'].str.lower().str.strip()
 
+def clean_text(text):
+    return str(text).replace(" ", "").strip()
+
+allergens_df['Cleaned_Menu'] = allergens_df['Menu'].apply(clean_text)
+
 st.title("📷 Allergic-Eye")
 
 # Camera input
@@ -37,10 +42,11 @@ if camera_image is not None:
     st.write(f"📈 신뢰도: **{confidence:.2f}%**")
 
     # 알러지 정보 찾기
-    matching_rows = allergens_df[allergens_df['Menu'] == predicted_food.lower()]
-    
-    if not matching_rows.empty:
-        allergens = matching_rows['Allergens'].values[0]
-        st.warning(f"⚠️ 알러지 성분: **{allergens}**")
-    else:
-        st.success("🎉 해당 음식의 알러지 정보가 없습니다.")
+    cleaned_predicted_food = clean_text(predicted_food)
+matching_rows = allergens_df[allergens_df['Cleaned_Menu'] == cleaned_predicted_food]
+
+if not matching_rows.empty:
+    allergens = matching_rows['Allergens'].values[0]
+    st.warning(f"⚠️ 알러지 성분: **{allergens}**")
+else:
+    st.success("🎉 해당 음식의 알러지 정보가 없습니다.")
