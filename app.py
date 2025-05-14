@@ -14,7 +14,7 @@ with open('labels.txt', 'r') as f:
 allergens_df = pd.read_csv('food_ingredients_and_allergens.csv')
 allergens_df['Food Name'] = allergens_df['Food Name'].str.lower().str.strip()
 
-st.title("📷 Allergic eye")
+st.title("📷 Allergic-Eye")
 
 # Camera input
 camera_image = st.camera_input("사진을 찍어 주세요!")
