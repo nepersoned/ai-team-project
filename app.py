@@ -14,10 +14,7 @@ with open('labels.txt', 'r') as f:
 allergens_df = pd.read_csv('menu_with_allergens.csv')
 allergens_df['Menu'] = allergens_df['Allergens'].str.lower().str.strip()
 
-def clean_text(text):
-    return str(text).replace(" ", "").strip()
-
-allergens_df['Cleaned_Menu'] = allergens_df['Menu'].apply(clean_text)
+allergens_df['Menu'] = allergens_df['Menu'].str.strip()
 
 st.title("📷 Allergic-Eye")
 
