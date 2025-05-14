@@ -10,7 +10,7 @@ model = tf.keras.models.load_model('keras_model.h5')
 with open('labels.txt', 'r', encoding='utf-8') as f:
     labels = [line.strip().split(maxsplit=1)[1].strip() for line in f.readlines()]
 
-allergens_df = pd.read_csv('menu_with_allergens (1).csv')
+allergens_df = pd.read_csv('menu_with_allergens.csv')
 allergens_df['Menu'] = allergens_df['Menu'].str.lower().str.strip()  # 소문자, 공백 정리
 
 st.title("📷 Allergic-Eye")
