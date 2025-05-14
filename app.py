@@ -11,7 +11,7 @@ with open('labels.txt', 'r') as f:
     labels = [line.strip().split(' ', 1)[1] for line in f.readlines()]
 
 # Load allergens CSV
-allergens_df = pd.read_csv('food_ingredients_and_allergens.csv')
+allergens_df = pd.read_csv('menu_with_allergens.csv')
 allergens_df['Menu'] = allergens_df['Allergens'].str.lower().str.strip()
 
 st.title("📷 Allergic-Eye")
