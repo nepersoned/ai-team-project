@@ -5,19 +5,24 @@ import tensorflow as tf
 from PIL import Image
 import io
 
-# Load model and labels
+# 모델과 라벨 불러오기
 model = tf.keras.models.load_model('keras_model.h5')
-
 with open('labels.txt', 'r', encoding='utf-8') as f:
-    labels = [line.strip() for line in f.readlines()]
+    labels = [line.strip().split(' ', 1)[1] for line in f.readlines()]
 
-# Load allergens CSV
-allergens_df = pd.read_csv('menu_with_allergens.csv')
-allergens_df['Menu'] = allergens_df['Menu'].str.lower().str.strip()
+# 알러지 CSV 불러오기
+allergens_df = pd.read_csv('menu_with_allergens.csv', encoding='utf-8')
+
+# 한글 매칭을 위한 정제 함수
+def clean_text(text):
+    return str(text).replace(" ", "").strip()
+
+# CSV에 정제된 컬럼 추가
+allergens_df['Cleaned_Menu'] = allergens_df['Menu'].apply(clean_text)
 
 st.title("📷 Allergic-Eye")
 
-# Camera input
+# 카메라 입력 받기
 camera_image = st.camera_input("사진을 찍어 주세요!")
 
 if camera_image is not None:
@@ -32,18 +37,19 @@ if camera_image is not None:
     predictions = model.predict(img_array)
     predicted_index = np.argmax(predictions)
     predicted_food = labels[predicted_index]
-    predicted_food = labels[predicted_index]
     confidence = predictions[0][predicted_index] * 100
 
     st.subheader(f"🍔 예측된 음식: **{predicted_food}**")
     st.write(f"📈 신뢰도: **{confidence:.2f}%**")
 
-    # 알러지 정보 찾기
-    # 알러지 정보 무조건 출력
-    matching_rows = allergens_df[allergens_df['Menu'] == predicted_food.lower()]
+    # 예측값 정제 후 매칭
+    cleaned_predicted_food = clean_text(predicted_food)
+    matching_rows = allergens_df[allergens_df['Cleaned_Menu'] == cleaned_predicted_food]
 
-    allergens = matching_rows['Allergens'].values[0]
-    st.warning(f"⚠️ 알러지 성분: **{allergens}**")
-
+    if not matching_rows.empty:
+        allergens = matching_rows['Allergens'].values[0]
+        st.warning(f"⚠️ 알러지 성분: **{allergens}**")
+    else:
+        st.success("🎉 해당 음식의 알러지 정보가 없습니다.")
 
 
