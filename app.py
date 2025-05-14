@@ -34,8 +34,11 @@ if camera_image is not None:
     confidence = predictions[0][predicted_index] * 100
 
     st.subheader(f"🍔 예측된 음식: **{predicted_food}**")
-    #st.write(f"📈 신뢰도: **{confidence:.2f}%**")
+    st.write(f"📈 신뢰도: **{confidence:.2f}%**")
 
     # 알러지 정보 찾기
-    allergens = allergens_df[allergens_df['Menu'] == predicted_food.lower()]['Allergens'].values[0]
-    st.warning(f"⚠️ 알러지 성분: **{allergens}**") 
+    if not matching_rows.empty:
+        allergens = matching_rows['Allergens'].values[0]
+        st.warning(f"⚠️ 알러지 성분: **{allergens}**")
+    else:
+        st.success("🎉 해당 음식의 알러지 정보가 없습니다.")
