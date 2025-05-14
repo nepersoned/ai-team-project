@@ -12,7 +12,7 @@ with open('labels.txt', 'r') as f:
 
 # Load allergens CSV
 allergens_df = pd.read_csv('food_ingredients_and_allergens.csv')
-allergens_df['Food Name'] = allergens_df['Food Name'].str.lower().str.strip()
+allergens_df['Menu'] = allergens_df['Allergens'].str.lower().str.strip()
 
 st.title("📷 Allergic-Eye")
 
