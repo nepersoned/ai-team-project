@@ -37,6 +37,8 @@ if camera_image is not None:
     st.write(f"📈 신뢰도: **{confidence:.2f}%**")
 
     # 알러지 정보 찾기
+    matching_rows = allergens_df[allergens_df['Menu'] == predicted_food.lower()]
+    
     if not matching_rows.empty:
         allergens = matching_rows['Allergens'].values[0]
         st.warning(f"⚠️ 알러지 성분: **{allergens}**")
