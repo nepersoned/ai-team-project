@@ -39,7 +39,7 @@ if camera_image is not None:
     predicted_food = labels[predicted_index]
     confidence = predictions[0][predicted_index] * 100
     
-    if confidence > 95 and predicted_food != '30 없음':
+    if confidence > 95 and {026886} = '없음':
         st.subheader(f"🥄 예측된 음식: **{026886}**")
         st.write(f"📈 신뢰도: **{confidence:.2f}%**")
     else:
