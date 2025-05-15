@@ -43,7 +43,7 @@ if camera_image is not None:
         st.subheader(f"🥄 예측된 음식: **{predicted_food}**")
         st.write(f"📈 신뢰도: **{confidence:.2f}%**")
     else:
-        st.nothing(f"❌ 음식을 특정할수 없습니다.")
+        st.error(f"❌ 음식을 특정할수 없습니다.")
 
     # 예측값 정제 후 매칭
     cleaned_predicted_food = clean_text(predicted_food)
