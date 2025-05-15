@@ -49,7 +49,4 @@ if camera_image is not None:
     if not matching_rows.empty:
         allergens = matching_rows['Allergens'].values[0]
         st.warning(f"⚠️ 알러지 성분: **{allergens}**")
-    else:
-        st.success("🎉 해당 음식의 알러지 정보가 없습니다.")
-
 
