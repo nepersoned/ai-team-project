@@ -38,17 +38,17 @@ if camera_image is not None:
     predicted_index = np.argmax(predictions)
     predicted_food = labels[predicted_index]
     confidence = predictions[0][predicted_index] * 100
-
-    st.subheader(f"🍔 예측된 음식: **{predicted_food}**")
-    st.write(f"📈 신뢰도: **{confidence:.2f}%**")
+    
+    if confidence > 95:
+        st.subheader(f"🥄 예측된 음식: **{predicted_food}**")
+        st.write(f"📈 신뢰도: **{confidence:.2f}%**")
+     else confidence < 95:
+        st.nothing(f"❌ 음식을 특정할수 없습니다.")
 
     # 예측값 정제 후 매칭
     cleaned_predicted_food = clean_text(predicted_food)
     matching_rows = allergens_df[allergens_df['Cleaned_Menu'] == cleaned_predicted_food]
 
-    if confidence < 95:
-        print('음식을 특정할수 없습니다.')
-
-    elif  not matching_rows.empty:
+    if not matching_rows.empty:
         allergens = matching_rows['Allergens'].values[0]
         st.warning(f"⚠ 알러지 성분: **{allergens}**") 
