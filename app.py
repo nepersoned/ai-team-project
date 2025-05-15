@@ -49,6 +49,6 @@ if camera_image is not None:
     cleaned_predicted_food = clean_text(predicted_food)
     matching_rows = allergens_df[allergens_df['Cleaned_Menu'] == cleaned_predicted_food]
 
-    if not matching_rows.empty and confidence > 95 and predicted_food == '없음':
+    if not matching_rows.empty and confidence > 95 and predicted_food != '없음':
         allergens = matching_rows['Allergens'].values[0]
         st.warning(f"⚠ 알러지 성분: **{allergens}**") 
