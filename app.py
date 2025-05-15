@@ -46,7 +46,7 @@ if camera_image is not None:
     cleaned_predicted_food = clean_text(predicted_food)
     matching_rows = allergens_df[allergens_df['Cleaned_Menu'] == cleaned_predicted_food]
 
-    if confidence < 90:
+    if confidence < 95:
         print('음식을 특정할수 없습니다.')
 
     elif  not matching_rows.empty:
