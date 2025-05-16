@@ -28,7 +28,7 @@ camera_image = st.camera_input("사진을 찍어 주세요!")
 if camera_image is not None:
     # 이미지 처리
     image = Image.open(io.BytesIO(camera_image.getvalue())).convert('RGB').resize((224, 224))
-    st.image(image, caption="촬영한 이미지", use_column_width=True)
+    st.image(image, caption="촬영한 이미지", use_container_width=True)
 
     img_array = np.array(image) / 255.0
     img_array = np.expand_dims(img_array, axis=0)
