@@ -51,4 +51,18 @@ if camera_image is not None:
 
     if not matching_rows.empty and confidence > 95 and predicted_food != '없음':
         allergens = matching_rows['Allergens'].values[0]
+        calories = matching_rows['Calories'].values[0]
+        cal_number = int(''.join(filter(str.isdigit, calories)))
+        if cal_number <= 500:
+            cal_level = "저칼로리"
+            cal_icon = "🟢"
+        elif cal_number <= 800:
+            cal_level = "중간칼로리"
+            cal_icon = "🟡"
+        else:
+            cal_level = "고칼로리"
+            cal_icon = "🔴"
+
         st.warning(f"⚠ 알러지 성분: **{allergens}**") 
+        st.info(f"🔥 칼로리: {cal_icon} **{calories} ({cal_level})**")
+
