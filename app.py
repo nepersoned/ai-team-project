@@ -39,7 +39,7 @@ if camera_image is not None:
     predicted_food = labels[predicted_index]
     confidence = predictions[0][predicted_index] * 100
     
-    if confidence > 95 and predicted_food != '없음':
+    if confidence > 85 and predicted_food != '없음':
         st.subheader(f"🥄 예측된 음식: **{predicted_food}**")
         st.write(f"📈 신뢰도: **{confidence:.2f}%**")
     else:
@@ -49,7 +49,7 @@ if camera_image is not None:
     cleaned_predicted_food = clean_text(predicted_food)
     matching_rows = allergens_df[allergens_df['Cleaned_Menu'] == cleaned_predicted_food]
 
-    if not matching_rows.empty and confidence > 95 and predicted_food != '없음':
+    if not matching_rows.empty and confidence > 85 and predicted_food != '없음':
         allergens = matching_rows['Allergens'].values[0]
         calories = matching_rows['Calories'].values[0]
         cal_number = int(''.join(filter(str.isdigit, calories)))
